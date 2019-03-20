@@ -77,7 +77,7 @@ namespace MexeMexe.Implementacao.Engine
 
             foreach (var item in agrupadasPorNaipe)
             {
-                var cartasOrdenadas = item.OrderBy(x => (int)x.Nipe).ToList();
+                var cartasOrdenadas = item.OrderBy(x => (int)x.Simbolo).ToList();
             }
 
         }
