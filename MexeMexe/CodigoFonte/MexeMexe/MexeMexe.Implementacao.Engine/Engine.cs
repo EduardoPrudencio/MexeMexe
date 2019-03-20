@@ -16,6 +16,8 @@ namespace MexeMexe.Implementacao.Engine
             IniciarBaralho();
         }
 
+        public int QuantidadeDeJogadores { get { return jogadores.Count(); } }
+
         private void IniciarBaralho()
         {
             var Nipes    = (NipeEnum[]) Enum.GetValues(typeof(NipeEnum));
@@ -26,13 +28,10 @@ namespace MexeMexe.Implementacao.Engine
             foreach (var nipe in Nipes)
             {
                 foreach (var simbolo in simbolos)
-                {
                     Baralho.Add(new Carta(nipe, simbolo));
-                }
             }
 
             Baralho = Embaralhar(Baralho);
-
         }
 
         private List<Carta> Embaralhar(List<Carta> baralho)
@@ -40,7 +39,7 @@ namespace MexeMexe.Implementacao.Engine
             List<Carta> baralhoEmbaralhado = new List<Carta>();
 
             int quantidadesDeCartasParaEmbaralhar = 52;
-            Random random      = new Random();
+            Random random = new Random();
 
             while (baralho.Count > 1)
             {
@@ -59,14 +58,42 @@ namespace MexeMexe.Implementacao.Engine
             return baralhoEmbaralhado;
         }
 
+        private List<Carta> DarCartas()
+        {
+            List<Carta> cartasEntregues = new List<Carta>();
+
+            cartasEntregues = Baralho.Take(11).ToList();
+
+            OrdenarCartas(cartasEntregues);
+
+            Baralho = Baralho.Where(x => !cartasEntregues.Contains(x)).ToList();
+
+            return cartasEntregues;
+        }
+
+        private void OrdenarCartas(List<Carta> cartas)
+        {
+            IEnumerable<IGrouping<NipeEnum, Carta>> agrupadasPorNaipe = cartas.GroupBy(x => x.Nipe);
+
+            foreach (var item in agrupadasPorNaipe)
+            {
+                var cartasOrdenadas = item.OrderBy(x => (int)x.Nipe).ToList();
+            }
+
+        }
+
         public void CriarJogadores(int quantidadeDeJogadores)
         {
             int cont = 1;
 
             while (cont <= quantidadeDeJogadores)
             {
-                Jogador jogador = new Jogador($"Jogador {cont}");
+                string guid = Guid.NewGuid().ToString().Replace("-","");
+
+                Jogador jogador = new Jogador($"Jogador {cont}", guid);
+                jogador.ReceberCartas(DarCartas());
                 jogadores.Add(jogador);
+
                 cont++;
             }
         }
