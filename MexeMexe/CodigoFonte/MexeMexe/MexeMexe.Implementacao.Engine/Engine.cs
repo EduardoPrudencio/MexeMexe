@@ -71,7 +71,7 @@ namespace MexeMexe.Implementacao.Engine
             return cartasEntregues;
         }
 
-        private List<Carta> OrdenarCartas(List<Carta> cartas)
+        public List<Carta> OrdenarCartas(List<Carta> cartas)
         {
             IEnumerable<IGrouping<NipeEnum, Carta>> agrupadasPorNaipe = cartas.GroupBy(x => x.Nipe);
 
