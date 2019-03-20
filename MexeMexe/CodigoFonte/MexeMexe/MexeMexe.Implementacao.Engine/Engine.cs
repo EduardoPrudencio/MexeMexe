@@ -64,22 +64,29 @@ namespace MexeMexe.Implementacao.Engine
 
             cartasEntregues = Baralho.Take(11).ToList();
 
-            OrdenarCartas(cartasEntregues);
+            cartasEntregues = OrdenarCartas(cartasEntregues);
 
             Baralho = Baralho.Where(x => !cartasEntregues.Contains(x)).ToList();
 
             return cartasEntregues;
         }
 
-        private void OrdenarCartas(List<Carta> cartas)
+        private List<Carta> OrdenarCartas(List<Carta> cartas)
         {
             IEnumerable<IGrouping<NipeEnum, Carta>> agrupadasPorNaipe = cartas.GroupBy(x => x.Nipe);
+
+            List<Carta> baralhoTemp = new List<Carta>();
 
             foreach (var item in agrupadasPorNaipe)
             {
                 var cartasOrdenadas = item.OrderBy(x => (int)x.Simbolo).ToList();
+                baralhoTemp.AddRange(cartasOrdenadas);
             }
 
+            cartas = baralhoTemp;
+            baralhoTemp = null;
+
+            return cartas;
         }
 
         public void CriarJogadores(int quantidadeDeJogadores)
