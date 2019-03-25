@@ -67,7 +67,10 @@ namespace MexeMexe.Implementacao.Engine
             foreach (var nipe in Nipes)
             {
                 foreach (var simbolo in simbolos)
-                    baralho.Add(new Carta(nipe, simbolo));
+                {
+                    string id = Guid.NewGuid().ToString();
+                    baralho.Add(new Carta(nipe, simbolo, id));
+                }
             }
 
             return baralho;
