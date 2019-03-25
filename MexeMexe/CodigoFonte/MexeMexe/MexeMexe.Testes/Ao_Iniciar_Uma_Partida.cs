@@ -40,10 +40,10 @@ namespace MexeMexe.Testes
 
             List<Carta> baralho = new List<Carta>
             {
-                new Carta(NipeEnum.Ouro, SimboloEnum.Dez),
-                new Carta(NipeEnum.Ouro, SimboloEnum.Dois),
-                new Carta(NipeEnum.Ouro, SimboloEnum.As),
-                new Carta(NipeEnum.Ouro, SimboloEnum.Tres),
+                new Carta(NipeEnum.Ouro, SimboloEnum.Dez,"0001"),
+                new Carta(NipeEnum.Ouro, SimboloEnum.Dois,"0002"),
+                new Carta(NipeEnum.Ouro, SimboloEnum.As,"0003"),
+                new Carta(NipeEnum.Ouro, SimboloEnum.Tres,"0004"),
             };
 
             baralho = _engine.OrdenarCartas(baralho);

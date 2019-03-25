@@ -22,8 +22,8 @@ namespace MexeMexe.Implementacao.Engine
         public void CriarJogadores(int quantidadeDeJogadores)
         {
             ObterBaralhosNecessarios(quantidadeDeJogadores);
-            Embaralhar(Baralho);
-
+            Baralho = Embaralhar(Baralho);
+             
             int contJogadores = 1;
 
             while (contJogadores <= quantidadeDeJogadores)
@@ -115,7 +115,7 @@ namespace MexeMexe.Implementacao.Engine
 
         private int DefinirQuantidadeDeBaralhos(int quantidadeDeJogadores)
         {
-            int quantidadeDeBaralho = 1;
+            int quantidadeDeBaralho = 2;
 
             if (quantidadeDeJogadores > 4)
                 quantidadeDeBaralho = quantidadeDeJogadores / 4;
