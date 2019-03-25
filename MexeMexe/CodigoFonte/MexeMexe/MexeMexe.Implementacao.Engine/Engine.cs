@@ -13,32 +13,71 @@ namespace MexeMexe.Implementacao.Engine
         public Engine()
         {
             jogadores = new List<Jogador>();
-            IniciarBaralho();
+            Baralho   = new List<Carta>();
         }
 
         public int QuantidadeDeJogadores { get { return jogadores.Count(); } }
+        public int QuantidadeDeCartas { get { return Baralho.Count; } }
 
-        private void IniciarBaralho()
+        public void CriarJogadores(int quantidadeDeJogadores)
+        {
+            ObterBaralhosNecessarios(quantidadeDeJogadores);
+            Embaralhar(Baralho);
+
+            int contJogadores = 1;
+
+            while (contJogadores <= quantidadeDeJogadores)
+            {
+                string guid = Guid.NewGuid().ToString().Replace("-", "");
+
+                Jogador jogador = new Jogador($"Jogador {contJogadores}", guid);
+                jogador.ReceberCartas(DarCartas());
+                jogadores.Add(jogador);
+
+                contJogadores++;
+            }
+        }
+
+        public List<Carta> OrdenarCartas(List<Carta> cartas)
+        {
+            IEnumerable<IGrouping<NipeEnum, Carta>> agrupadasPorNaipe = cartas.GroupBy(x => x.Nipe);
+
+            List<Carta> baralhoTemp = new List<Carta>();
+
+            foreach (var item in agrupadasPorNaipe)
+            {
+                var cartasOrdenadas = item.OrderBy(x => (int)x.Simbolo).ToList();
+                baralhoTemp.AddRange(cartasOrdenadas);
+            }
+
+            cartas = baralhoTemp;
+            baralhoTemp = null;
+
+            return cartas;
+        }
+
+
+        private List<Carta> CriarBaralho()
         {
             var Nipes    = (NipeEnum[]) Enum.GetValues(typeof(NipeEnum));
             var simbolos = (SimboloEnum[])Enum.GetValues(typeof(SimboloEnum));
 
-            Baralho = new List<Carta>();
+            List<Carta> baralho = new List<Carta>();
 
             foreach (var nipe in Nipes)
             {
                 foreach (var simbolo in simbolos)
-                    Baralho.Add(new Carta(nipe, simbolo));
+                    baralho.Add(new Carta(nipe, simbolo));
             }
 
-            Baralho = Embaralhar(Baralho);
+            return baralho;
         }
 
         private List<Carta> Embaralhar(List<Carta> baralho)
         {
             List<Carta> baralhoEmbaralhado = new List<Carta>();
 
-            int quantidadesDeCartasParaEmbaralhar = 52;
+            int quantidadesDeCartasParaEmbaralhar = baralho.Count;
             Random random = new Random();
 
             while (baralho.Count > 1)
@@ -71,37 +110,25 @@ namespace MexeMexe.Implementacao.Engine
             return cartasEntregues;
         }
 
-        public List<Carta> OrdenarCartas(List<Carta> cartas)
+        private int DefinirQuantidadeDeBaralhos(int quantidadeDeJogadores)
         {
-            IEnumerable<IGrouping<NipeEnum, Carta>> agrupadasPorNaipe = cartas.GroupBy(x => x.Nipe);
+            int quantidadeDeBaralho = 1;
 
-            List<Carta> baralhoTemp = new List<Carta>();
+            if (quantidadeDeJogadores > 4)
+                quantidadeDeBaralho = quantidadeDeJogadores / 4;
 
-            foreach (var item in agrupadasPorNaipe)
-            {
-                var cartasOrdenadas = item.OrderBy(x => (int)x.Simbolo).ToList();
-                baralhoTemp.AddRange(cartasOrdenadas);
-            }
-
-            cartas = baralhoTemp;
-            baralhoTemp = null;
-
-            return cartas;
+            return quantidadeDeBaralho;
         }
 
-        public void CriarJogadores(int quantidadeDeJogadores)
+        private void ObterBaralhosNecessarios(int quantidadeDeJogadores)
         {
-            int cont = 1;
+            int numeroDeBaralhos = DefinirQuantidadeDeBaralhos(quantidadeDeJogadores);
+            int contBaralhos = 0;
 
-            while (cont <= quantidadeDeJogadores)
+            while (contBaralhos < numeroDeBaralhos)
             {
-                string guid = Guid.NewGuid().ToString().Replace("-","");
-
-                Jogador jogador = new Jogador($"Jogador {cont}", guid);
-                jogador.ReceberCartas(DarCartas());
-                jogadores.Add(jogador);
-
-                cont++;
+                Baralho.AddRange(CriarBaralho());
+                contBaralhos++;
             }
         }
     }

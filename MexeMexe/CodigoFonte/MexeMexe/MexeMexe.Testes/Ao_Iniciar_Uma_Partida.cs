@@ -11,20 +11,33 @@ namespace MexeMexe.Testes
 
         public Ao_Iniciar_Uma_Partida()
         {
-            _engine = new Engine();
+            
         }
 
         [Fact]
         public void A_Quantidade_De_Jogadores_Criada_deve_Ser_A_Mesma_Definida()
         {
+            Engine _engine = new Engine();
+
             _engine.CriarJogadores(2);
 
             Assert.True(_engine.QuantidadeDeJogadores == 2);
         }
 
         [Fact]
+        public void A_Quantidade_De_Cartas_Deve_Ser_Igual_A_Cinco()
+        {
+            Engine _engine = new Engine();
+            _engine.CriarJogadores(9);
+            Assert.True(_engine.QuantidadeDeCartas == 5);
+        }
+
+
+        [Fact]
         public void As_Cartas_Devem_Ser_Ordenadas()
         {
+            Engine _engine = new Engine();
+
             List<Carta> baralho = new List<Carta>
             {
                 new Carta(NipeEnum.Ouro, SimboloEnum.Dez),
