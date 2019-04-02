@@ -1,4 +1,5 @@
 ﻿using MexeMexe.Dominio.Modelo;
+using MexeMexe.Infraestrutura.Conteudo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,26 +8,30 @@ namespace MexeMexe.Implementacao.Engine
 {
     public class Engine
     {
-        List<Carta> Baralho;
+        List<Carta>   Baralho;
         List<Jogador> jogadores;
+        Configuracao  _configuracao;
 
-        public Engine()
+        public Engine(Configuracao configuracao)
         {
-            jogadores = new List<Jogador>();
-            Baralho   = new List<Carta>();
+            jogadores     = new List<Jogador>();
+            Baralho       = new List<Carta>();
+            _configuracao = configuracao;
+
+            CriarJogadores();
         }
 
         public int QuantidadeDeJogadores { get { return jogadores.Count(); } }
         public int QuantidadeDeCartas { get { return Baralho.Count; } }
 
-        public void CriarJogadores(int quantidadeDeJogadores)
+        private void CriarJogadores()
         {
-            ObterBaralhosNecessarios(quantidadeDeJogadores);
+            ObterBaralhosNecessarios(_configuracao.QunatidadeDeJogadores);
             Baralho = Embaralhar(Baralho);
              
             int contJogadores = 1;
 
-            while (contJogadores <= quantidadeDeJogadores)
+            while (contJogadores <= _configuracao.QunatidadeDeJogadores)
             {
                 string guid = Guid.NewGuid().ToString().Replace("-", "");
 
@@ -54,6 +59,14 @@ namespace MexeMexe.Implementacao.Engine
             baralhoTemp = null;
 
             return cartas;
+        }
+
+        public Jogador ObterJogador()
+        {
+            Jogador jogadorConectado = jogadores[0];
+            jogadorConectado.Nome    = _configuracao.NomeDoJogador;
+
+            return jogadorConectado;
         }
 
 
@@ -136,3 +149,4 @@ namespace MexeMexe.Implementacao.Engine
         }
     }
 }
+

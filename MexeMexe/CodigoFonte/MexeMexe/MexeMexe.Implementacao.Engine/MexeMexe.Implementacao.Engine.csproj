@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MexeMexe.Dominio.Modelo\MexeMexe.Dominio.Modelo.csproj" />
+    <ProjectReference Include="..\MexeMexe.Infraestrutura.Conteudo\MexeMexe.Infraestrutura.Conteudo.csproj" />
   </ItemGroup>
 
 </Project>

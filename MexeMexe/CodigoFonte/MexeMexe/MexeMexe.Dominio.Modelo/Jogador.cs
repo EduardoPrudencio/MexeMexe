@@ -4,7 +4,7 @@ namespace MexeMexe.Dominio.Modelo
 {
     public class Jogador
     {
-        private List<Carta> Mao;
+        private List<Carta> _mao;
         private string _nome;
         private string _id;
 
@@ -12,16 +12,18 @@ namespace MexeMexe.Dominio.Modelo
         {
             _id   = id;
             _nome = nome;
-            Mao   = new List<Carta>();
+            _mao   = new List<Carta>();
         }
 
-        public string Nome { get { return _nome; } }
+        public string Nome { get { return _nome; } set { _nome = value; } }
 
         public string Id { get { return _id; } }
 
+        public List<Carta> Mao { get { return _mao; } }
+
         public void ReceberCartas(List<Carta> cartas)
         {
-            this.Mao = cartas;
+            this._mao = cartas;
         }
     }
 }

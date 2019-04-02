@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MexeMexe.Implementacao.Engine\MexeMexe.Implementacao.Engine.csproj" />
+    <ProjectReference Include="..\MexeMexe.Infraestrutura.Conteudo\MexeMexe.Infraestrutura.Conteudo.csproj" />
   </ItemGroup>
 
 </Project>

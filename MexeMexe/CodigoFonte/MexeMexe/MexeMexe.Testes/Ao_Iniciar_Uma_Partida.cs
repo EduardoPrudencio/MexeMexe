@@ -1,5 +1,6 @@
 using MexeMexe.Dominio.Modelo;
 using MexeMexe.Implementacao.Engine;
+using MexeMexe.Infraestrutura.Conteudo;
 using System.Collections.Generic;
 using Xunit;
 
@@ -17,18 +18,18 @@ namespace MexeMexe.Testes
         [Fact]
         public void A_Quantidade_De_Jogadores_Criada_deve_Ser_A_Mesma_Definida()
         {
-            Engine _engine = new Engine();
-
-            _engine.CriarJogadores(2);
-
+            Configuracao config = new Configuracao("Marquinhos", 2);
+            Engine _engine = new Engine(config);
             Assert.True(_engine.QuantidadeDeJogadores == 2);
         }
 
         [Fact]
         public void A_Quantidade_De_Cartas_Deve_Ser_Igual_A_Cinco()
         {
-            Engine _engine = new Engine();
-            _engine.CriarJogadores(9);
+            Configuracao config = new Configuracao("Marquinhos", 9);
+            Engine _engine      = new Engine(config);
+            Jogador jogador     = _engine.ObterJogador();
+
             Assert.True(_engine.QuantidadeDeCartas == 5);
         }
 
@@ -36,7 +37,8 @@ namespace MexeMexe.Testes
         [Fact]
         public void As_Cartas_Devem_Ser_Ordenadas()
         {
-            Engine _engine = new Engine();
+            Configuracao config = new Configuracao("Marquinhos", 9);
+            Engine _engine      = new Engine(config);
 
             List<Carta> baralho = new List<Carta>
             {
