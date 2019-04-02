@@ -162,5 +162,19 @@
   <ItemGroup>
     <Folder Include="Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MexeMexe.Dominio.Modelo\MexeMexe.Dominio.Modelo.csproj">
+      <Project>{C5BD0105-8F95-4311-9BF0-B489DDDF332A}</Project>
+      <Name>MexeMexe.Dominio.Modelo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MexeMexe.Implementacao.Engine\MexeMexe.Implementacao.Engine.csproj">
+      <Project>{9E662C04-8AAF-4E1C-94DD-79DB3191DE37}</Project>
+      <Name>MexeMexe.Implementacao.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MexeMexe.Infraestrutura.Conteudo\MexeMexe.Infraestrutura.Conteudo.csproj">
+      <Project>{E8C46675-830B-4C22-91A1-E834FEF38B50}</Project>
+      <Name>MexeMexe.Infraestrutura.Conteudo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

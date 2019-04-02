@@ -8,5 +8,7 @@
         Title="GameView" Height="450" Width="800">
     <Grid>
         <Label Content="{Binding textoTeste}" />
+        <Image Source="{Binding textoTeste}" Width="70"/>
+        <Image Source="../img/asCopas.png" Width="70" Margin="40,0,0,0"/>
     </Grid>
 </Window>
