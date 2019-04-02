@@ -69,6 +69,26 @@ namespace MexeMexe.Implementacao.Engine
             return jogadorConectado;
         }
 
+        public Carta PedirCarta()
+        {
+            if (!Baralho.Any())
+                return null;
+
+            List<Carta> baralhoTemp = new List<Carta>();
+
+            Carta cartaComprada = Baralho[0];
+
+            if (Baralho.Count > 1)
+            {
+                baralhoTemp = Baralho.Where(x => x != Baralho[0]).ToList();
+            }
+
+            Baralho = baralhoTemp;
+            baralhoTemp = null;
+
+            return cartaComprada;
+        }
+
 
         private List<Carta> CriarBaralho()
         {
