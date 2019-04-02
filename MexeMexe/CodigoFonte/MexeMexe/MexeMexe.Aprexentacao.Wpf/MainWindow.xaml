@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MexeMexe.Aprexentacao.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="Green">
     <Grid>
-        
+        <Image Source="img/asCopas.png" Width="70"/>
     </Grid>
 </Window>

@@ -7,7 +7,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public void NotifyPropertyChange(string propertyName)
+        protected void NotifyPropertyChange(string propertyName)
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
