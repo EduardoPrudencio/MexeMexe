@@ -74,7 +74,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         public string Detalhes { get { return $"Mexe Mexe - {player.Nome}"; } set { Detalhes = value; NotifyPropertyChange(nameof(Detalhes)); } }
 
-        public Thickness pocicaoUm { get { return new Thickness(0, -30, 0, 0); } set { pocicaoUm = value; NotifyPropertyChange(nameof(pocicaoUm)); } }
+        public Thickness pocicaoUm { get { return new Thickness(10, 0, 0, 0); } set { pocicaoUm = value; NotifyPropertyChange(nameof(pocicaoUm)); } }
 
         public string Cartas { get { return _cartas; } set { _cartas = value; } }
 

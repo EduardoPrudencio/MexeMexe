@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MexeMexe.Aprexentacao.Wpf.Comandos
 {
@@ -22,7 +21,10 @@ namespace MexeMexe.Aprexentacao.Wpf.Comandos
         {
             var imagem = parameter as System.Windows.Controls.Image;
 
-            imagem.Margin = new System.Windows.Thickness(0,0,0,0);
+            if (imagem.Margin.Top == -50)
+                imagem.Margin = new System.Windows.Thickness(10,0,0,0);
+            else
+                imagem.Margin = new System.Windows.Thickness(10, -50, 0, 0);
 
         }
     }
