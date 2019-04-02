@@ -30,7 +30,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         public GameViewModel()
         {
-            _config = new Configuracao("Jogador - 1", 4);
+            _config = new Configuracao("Jogador - 1", 9);
             _engine = new Engine(_config);
             player  = _engine.ObterJogador();
 
@@ -77,6 +77,10 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         public Thickness pocicaoUm { get { return new Thickness(10, 0, 0, 0); } set { pocicaoUm = value; NotifyPropertyChange(nameof(pocicaoUm)); } }
 
         public string Cartas { get { return _cartas; } set { _cartas = value; } }
+
+        public string QuantidadeDeCartasPataCompra { get { return $"{_engine.QuantidadeDeCartas} cartas para compra"; } set { QuantidadeDeCartasPataCompra = value; NotifyPropertyChange(nameof(QuantidadeDeCartasPataCompra)); } }
+
+        public string QuantidadeDeJogadores { get { return $"{_engine.QuantidadeDeJogadores} jogadores na mesa"; } set { QuantidadeDeJogadores = value; } }
 
         public string carta01
         {

@@ -7,71 +7,78 @@
         mc:Ignorable="d"
         Title="{Binding Detalhes}" Height="450" Width="800" Background="Green">
     <Grid>
-        <Label Content="{Binding Cartas}" />
+        <!--<Label Content="{Binding Cartas}" />-->
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Width=" auto" Height="250" Margin="0,40,20,0"> 
+            <Image Source="../img/cartasCompra.png" Width="130"  />
+            <Label Content="{Binding QuantidadeDeCartasPataCompra}" FontSize="18" FontWeight="Bold"/>
+            <Label Content="{Binding QuantidadeDeJogadores}" FontSize="18" FontWeight="Bold"/>
+        </StackPanel>
+        
 
         <StackPanel HorizontalAlignment="Center" Width="Auto" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,250">
             
-                <Image x:Name="carta01" Source="{Binding carta01}" Width="70" Margin="{Binding pocicaoUm}">
+                <Image x:Name="carta01" Source="{Binding carta01}" Width="90" Margin="{Binding pocicaoUm}">
                     <Image.InputBindings >
                         <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta01}" />
                     </Image.InputBindings>
                 </Image>
 
-            <Image x:Name="carta02" Source="{Binding carta02}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta02" Source="{Binding carta02}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta02}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta03" Source="{Binding carta03}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta03" Source="{Binding carta03}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta03}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta04" Source="{Binding carta04}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta04" Source="{Binding carta04}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta04}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta05" Source="{Binding carta05}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta05" Source="{Binding carta05}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta05}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta06" Source="{Binding carta06}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta06" Source="{Binding carta06}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta06}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta07" Source="{Binding carta07}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta07" Source="{Binding carta07}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta07}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta08" Source="{Binding carta08}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta08" Source="{Binding carta08}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta08}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta09" Source="{Binding carta09}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta09" Source="{Binding carta09}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta09}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta10" Source="{Binding carta10}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta10" Source="{Binding carta10}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta10}" />
                 </Image.InputBindings>
             </Image>
 
-            <Image x:Name="carta11" Source="{Binding carta11}" Width="70" Margin="{Binding pocicaoUm}">
+            <Image x:Name="carta11" Source="{Binding carta11}" Width="90" Margin="{Binding pocicaoUm}">
                 <Image.InputBindings >
                     <MouseBinding Gesture="LeftClick" Command="{Binding SelectCardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=carta11}" />
                 </Image.InputBindings>

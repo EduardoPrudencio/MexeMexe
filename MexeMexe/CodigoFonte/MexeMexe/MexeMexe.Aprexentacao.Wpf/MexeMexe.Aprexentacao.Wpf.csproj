@@ -177,5 +177,8 @@
       <Name>MexeMexe.Infraestrutura.Conteudo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\cartasCompra.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
