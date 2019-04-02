@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Comandos\SelectCardCommand.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\GameView.xaml.cs">
@@ -149,7 +150,7 @@
     <Resource Include="img\seteEspada.png" />
     <Resource Include="img\seteOuro.png" />
     <Resource Include="img\setePaus.png" />
-    <Resource Include="img\setesCopas.png" />
+    <Resource Include="img\seteCopas.png" />
     <Resource Include="img\tresCopas.png" />
     <Resource Include="img\tresEspada.png" />
     <Resource Include="img\tresOuro.png" />

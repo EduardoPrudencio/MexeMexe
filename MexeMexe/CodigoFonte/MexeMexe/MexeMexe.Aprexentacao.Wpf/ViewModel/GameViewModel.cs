@@ -1,6 +1,9 @@
-﻿using MexeMexe.Dominio.Modelo;
+﻿using MexeMexe.Aprexentacao.Wpf.Comandos;
+using MexeMexe.Dominio.Modelo;
 using MexeMexe.Implementacao.Engine;
 using MexeMexe.Infraestrutura.Conteudo;
+using System.Windows;
+using System.Windows.Input;
 
 namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 {
@@ -8,7 +11,10 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
     {
         Configuracao _config;
         Engine       _engine ;
+        string       _cartas = string.Empty;
         Jogador player;
+
+        private ICommand _selectCardCommand;
 
         string mao1 = string.Empty;
         string mao2 = string.Empty;
@@ -24,9 +30,9 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         public GameViewModel()
         {
-            _config = new Configuracao("Marquinhos", 2);
+            _config = new Configuracao("Jogador - 1", 4);
             _engine = new Engine(_config);
-            player = _engine.ObterJogador();
+            player  = _engine.ObterJogador();
 
             mao1  = $"{player.Mao[0].Simbolo.ToString().ToLower()}{player.Mao[0].Nipe}";
             mao2  = $"{player.Mao[1].Simbolo.ToString().ToLower()}{player.Mao[1].Nipe}";
@@ -40,7 +46,37 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             mao10 = $"{player.Mao[9].Simbolo.ToString().ToLower()}{player.Mao[9].Nipe}";
             mao11 = $"{player.Mao[10].Simbolo.ToString().ToLower()}{player.Mao[10].Nipe}";
 
+            _cartas = $"{mao1} - {mao2} - {mao3} - {mao4} - {mao5} - {mao6} - {mao7} - {mao8} - {mao9} - {mao10} - {mao11} ";
+
+            //ThicknessAnimation animacao = new ThicknessAnimation();
+            //animacao.From = new System.Windows.Thickness(0, 0, 0, 0);
+            //animacao.To   = new System.Windows.Thickness(0, -50, 0, 0); ;
+
         }
+
+        public ICommand SelectCardCommand
+        {
+            get
+            {
+                if (_selectCardCommand == null)
+                {
+                    _selectCardCommand = new SelectCardCommand();
+                    //((SelectCardCommand)_selectImageCommand);
+                }
+
+                return _selectCardCommand;
+            }
+            set
+            {
+                _selectCardCommand = value;
+            }
+        }
+
+        public string Detalhes { get { return $"Mexe Mexe - {player.Nome}"; } set { Detalhes = value; NotifyPropertyChange(nameof(Detalhes)); } }
+
+        public Thickness pocicaoUm { get { return new Thickness(0, -30, 0, 0); } set { pocicaoUm = value; NotifyPropertyChange(nameof(pocicaoUm)); } }
+
+        public string Cartas { get { return _cartas; } set { _cartas = value; } }
 
         public string carta01
         {

@@ -5,20 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MexeMexe.Aprexentacao.Wpf.View"
         mc:Ignorable="d"
-        Title="GameView" Height="450" Width="800">
+        Title="{Binding Detalhes}" Height="450" Width="800" Background="Green">
     <Grid>
-            <StackPanel HorizontalAlignment="Center" Width="Auto" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,0">
-                <Image Source="{Binding carta01}" Width="70" Margin="0,0,0,0"/>
-                <Image Source="{Binding carta02}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta03}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta04}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta05}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta06}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta07}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta08}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta09}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta10}" Width="70" Margin="10,0,0,0"/>
-                <Image Source="{Binding carta11}" Width="70" Margin="10,0,0,0"/>
+        <Label Content="{Binding Cartas}" />
+
+        <Button Command="{Binding Path=SelectCardCommand}" Content="teste" Width="50" Height="20" CommandParameter="{Binding ElementName=carta01}" />
+
+        <StackPanel HorizontalAlignment="Center" Width="Auto" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,250">
+                <Image x:Name="carta01" Source="{Binding carta01}" Width="70" Margin="{Binding pocicaoUm}"/>
+                <Image x:Name="carta02" Source="{Binding carta02}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta03" Source="{Binding carta03}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta04" Source="{Binding carta04}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta05" Source="{Binding carta05}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta06" Source="{Binding carta06}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta07" Source="{Binding carta07}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta08" Source="{Binding carta08}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta09" Source="{Binding carta09}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta10" Source="{Binding carta10}" Width="70" Margin="10,0,0,0"/>
+                <Image x:Name="carta11" Source="{Binding carta11}" Width="70" Margin="10,0,0,0"/>
             </StackPanel>
         
        
