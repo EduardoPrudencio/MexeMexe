@@ -2,8 +2,12 @@
 using MexeMexe.Dominio.Modelo;
 using MexeMexe.Implementacao.Engine;
 using MexeMexe.Infraestrutura.Conteudo;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 {
@@ -14,19 +18,20 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         string       _cartas = string.Empty;
         Jogador player;
         string _quantidadeDeCartasPataCompra;
+        private Image _imagemDeExemplo;
 
         private ICommand _selectCardCommand;
         private ICommand _pedirCartaCommand;
 
-        string mao1 = string.Empty;
-        string mao2 = string.Empty;
-        string mao3 = string.Empty;
-        string mao4 = string.Empty;
-        string mao5 = string.Empty;
-        string mao6 = string.Empty;
-        string mao7 = string.Empty;
-        string mao8 = string.Empty;
-        string mao9 = string.Empty;
+        string mao1  = string.Empty;
+        string mao2  = string.Empty;
+        string mao3  = string.Empty;
+        string mao4  = string.Empty;
+        string mao5  = string.Empty;
+        string mao6  = string.Empty;
+        string mao7  = string.Empty;
+        string mao8  = string.Empty;
+        string mao9  = string.Empty;
         string mao10 = string.Empty;
         string mao11 = string.Empty;
 
@@ -51,6 +56,32 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             _cartas = $"{mao1} - {mao2} - {mao3} - {mao4} - {mao5} - {mao6} - {mao7} - {mao8} - {mao9} - {mao10} - {mao11} ";
 
             _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
+
+            //var pathImages = $"{Directory.GetCurrentDirectory()}\\img\\cartasCompra.png";
+            Image img = ObterImagem("cartasCompra.png");
+            _imagemDeExemplo = img;
+
+
+            //MouseGesture mouseGesture = new MouseGesture(MouseAction.LeftClick);
+            //DependencyProperty commProp = Rea RadMenuItem.CommandProperty;
+            //DependencyProperty MouseUpCommandProperty =
+            //DependencyProperty.RegisterAttached(
+            //                  "MouseUpCommand", typeof(ICommand), typeof(MouseBehaviour), new FrameworkPropertyMetadata(new PropertyChangedCallback(MouseUpCommandChanged)));
+
+            //if (!BindingOperations.IsDataBound(img, commProp))
+            //{
+            //    Binding binding = new Binding("PedirCartaCommand");
+            //    BindingOperations.SetBinding(img, commProp, binding);
+            //}
+
+            //this is optional, i found easier to pass the direct ref of the parameter instead of another binding (it would be a binding to ElementName).
+            //item.CommandParameter = headerlCell.Column;
+            //menu.Items.Add(item);
+
+
+            //img.SetBinding()
+
+            //SetBinding(Buttom.CommandProperty, new Binding("SaveReservationCommand"));
 
 
         }
@@ -102,6 +133,10 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             else
                 ShowMessage("Todas as cartas já foram compradas.");
         }
+
+        
+
+        public Image ImagemDeExemplo { get { return _imagemDeExemplo; } set { _imagemDeExemplo = value; NotifyPropertyChange(nameof(_imagemDeExemplo)); } }
 
         public string Detalhes { get { return $"Mexe Mexe - {player.Nome}"; } set { Detalhes = value; NotifyPropertyChange(nameof(Detalhes)); } }
 
@@ -192,5 +227,14 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             MessageBox.Show(message);
         }
 
+        private Image ObterImagem(string nomeDaImagem)
+        {
+            Image img = new Image();
+            FileStream stream            = new FileStream($"D:\\Git\\Projetos\\Pessoal\\MexeMexe\\MexeMexe\\CodigoFonte\\MexeMexe\\MexeMexe.Aprexentacao.Wpf\\img\\{nomeDaImagem}", FileMode.Open);
+            PngBitmapDecoder iconDecoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+            ImageSource iconSource       = iconDecoder.Frames[0];
+            img.Source                   = iconSource;
+            return img;
+        }
     }
 }
