@@ -43,15 +43,15 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             player             = _engine.ObterJogador();
             _stackCompraCartas = new StackPanel();
 
-            mao1 = $"{player.Mao[0].Simbolo.ToString().ToLower()}{player.Mao[0].Nipe}";
-            mao2 = $"{player.Mao[1].Simbolo.ToString().ToLower()}{player.Mao[1].Nipe}";
-            mao3 = $"{player.Mao[2].Simbolo.ToString().ToLower()}{player.Mao[2].Nipe}";
-            mao4 = $"{player.Mao[3].Simbolo.ToString().ToLower()}{player.Mao[3].Nipe}";
-            mao5 = $"{player.Mao[4].Simbolo.ToString().ToLower()}{player.Mao[4].Nipe}";
-            mao6 = $"{player.Mao[5].Simbolo.ToString().ToLower()}{player.Mao[5].Nipe}";
-            mao7 = $"{player.Mao[6].Simbolo.ToString().ToLower()}{player.Mao[6].Nipe}";
-            mao8 = $"{player.Mao[7].Simbolo.ToString().ToLower()}{player.Mao[7].Nipe}";
-            mao9 = $"{player.Mao[8].Simbolo.ToString().ToLower()}{player.Mao[8].Nipe}";
+            mao1  = $"{player.Mao[0].Simbolo.ToString().ToLower()}{player.Mao[0].Nipe}";
+            mao2  = $"{player.Mao[1].Simbolo.ToString().ToLower()}{player.Mao[1].Nipe}";
+            mao3  = $"{player.Mao[2].Simbolo.ToString().ToLower()}{player.Mao[2].Nipe}";
+            mao4  = $"{player.Mao[3].Simbolo.ToString().ToLower()}{player.Mao[3].Nipe}";
+            mao5  = $"{player.Mao[4].Simbolo.ToString().ToLower()}{player.Mao[4].Nipe}";
+            mao6  = $"{player.Mao[5].Simbolo.ToString().ToLower()}{player.Mao[5].Nipe}";
+            mao7  = $"{player.Mao[6].Simbolo.ToString().ToLower()}{player.Mao[6].Nipe}";
+            mao8  = $"{player.Mao[7].Simbolo.ToString().ToLower()}{player.Mao[7].Nipe}";
+            mao9  = $"{player.Mao[8].Simbolo.ToString().ToLower()}{player.Mao[8].Nipe}";
             mao10 = $"{player.Mao[9].Simbolo.ToString().ToLower()}{player.Mao[9].Nipe}";
             mao11 = $"{player.Mao[10].Simbolo.ToString().ToLower()}{player.Mao[10].Nipe}";
 
@@ -59,19 +59,24 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
             _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
 
-            //var pathImages = $"{Directory.GetCurrentDirectory()}\\img\\cartasCompra.png";
-            Image img = ObterImagem("cartasCompra.png");
-            img.Width = 130;
+            Image img        = ObterImagem("cartasCompra.png");
+            img.Width        = 130;
             _imagemDeExemplo = img;
+
 
             _stackCompraCartas.Children.Add(img);
 
 
+            var imag = new Image();
+
             //MouseGesture mouseGesture = new MouseGesture(MouseAction.LeftClick);
             //DependencyProperty commProp = Rea RadMenuItem.CommandProperty;
+
+            //DependencyProperty commProp = imag.com
+
             //DependencyProperty MouseUpCommandProperty =
-            //DependencyProperty.RegisterAttached(
-            //                  "MouseUpCommand", typeof(ICommand), typeof(MouseBehaviour), new FrameworkPropertyMetadata(new PropertyChangedCallback(MouseUpCommandChanged)));
+            DependencyProperty.RegisterAttached(
+                              "MouseUpCommand", typeof(ICommand), typeof(MouseGesture), new FrameworkPropertyMetadata(new PropertyChangedCallback()));
 
             //if (!BindingOperations.IsDataBound(img, commProp))
             //{
