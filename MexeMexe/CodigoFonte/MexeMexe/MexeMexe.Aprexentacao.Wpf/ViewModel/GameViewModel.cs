@@ -13,8 +13,10 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         Engine       _engine ;
         string       _cartas = string.Empty;
         Jogador player;
+        string _quantidadeDeCartasPataCompra;
 
         private ICommand _selectCardCommand;
+        private ICommand _pedirCartaCommand;
 
         string mao1 = string.Empty;
         string mao2 = string.Empty;
@@ -48,9 +50,8 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
             _cartas = $"{mao1} - {mao2} - {mao3} - {mao4} - {mao5} - {mao6} - {mao7} - {mao8} - {mao9} - {mao10} - {mao11} ";
 
-            //ThicknessAnimation animacao = new ThicknessAnimation();
-            //animacao.From = new System.Windows.Thickness(0, 0, 0, 0);
-            //animacao.To   = new System.Windows.Thickness(0, -50, 0, 0); ;
+            _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
+
 
         }
 
@@ -61,7 +62,6 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
                 if (_selectCardCommand == null)
                 {
                     _selectCardCommand = new SelectCardCommand();
-                    //((SelectCardCommand)_selectImageCommand);
                 }
 
                 return _selectCardCommand;
@@ -72,13 +72,52 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             }
         }
 
+        public ICommand PedirCartaCommand
+        {
+            get
+            {
+                if (_pedirCartaCommand == null)
+                {
+                    _pedirCartaCommand = new PedirCartaCommand();
+
+                    ((PedirCartaCommand)_pedirCartaCommand).OnPedirCartas += GameViewModel_OnPedirCartas;
+                }
+
+                return _pedirCartaCommand;
+            }
+            set
+            {
+                _pedirCartaCommand = value;
+            }
+        }
+
+        private void GameViewModel_OnPedirCartas(object sender, System.EventArgs e)
+        {
+            if (_engine.QuantidadeDeCartas > 0)
+            {
+                Carta carta = _engine.PedirCarta();
+                _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
+                NotifyPropertyChange(nameof(QuantidadeDeCartasPataCompra));
+            }
+            else
+                ShowMessage("Todas as cartas já foram compradas.");
+        }
+
         public string Detalhes { get { return $"Mexe Mexe - {player.Nome}"; } set { Detalhes = value; NotifyPropertyChange(nameof(Detalhes)); } }
 
         public Thickness pocicaoUm { get { return new Thickness(10, 0, 0, 0); } set { pocicaoUm = value; NotifyPropertyChange(nameof(pocicaoUm)); } }
 
         public string Cartas { get { return _cartas; } set { _cartas = value; } }
 
-        public string QuantidadeDeCartasPataCompra { get { return $"{_engine.QuantidadeDeCartas} cartas para compra"; } set { QuantidadeDeCartasPataCompra = value; NotifyPropertyChange(nameof(QuantidadeDeCartasPataCompra)); } }
+        public string QuantidadeDeCartasPataCompra
+        {
+            get { return $"{_quantidadeDeCartasPataCompra} cartas para compra"; }
+            set
+            {
+                _quantidadeDeCartasPataCompra = value;
+                NotifyPropertyChange(nameof(QuantidadeDeCartasPataCompra));
+            }
+        }
 
         public string QuantidadeDeJogadores { get { return $"{_engine.QuantidadeDeJogadores} jogadores na mesa"; } set { QuantidadeDeJogadores = value; } }
 
@@ -146,6 +185,11 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         {
             get { return $"../img/{mao11}.png"; }
             set { carta11 = value; NotifyPropertyChange(nameof(carta11)); }
+        }
+
+        private void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
         }
 
     }
