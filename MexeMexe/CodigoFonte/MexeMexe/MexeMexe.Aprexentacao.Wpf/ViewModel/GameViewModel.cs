@@ -27,18 +27,6 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         private ICommand _selectCardCommand;
         private ICommand _pedirCartaCommand;
 
-        string mao1 = string.Empty;
-        string mao2 = string.Empty;
-        string mao3 = string.Empty;
-        string mao4 = string.Empty;
-        string mao5 = string.Empty;
-        string mao6 = string.Empty;
-        string mao7 = string.Empty;
-        string mao8 = string.Empty;
-        string mao9 = string.Empty;
-        string mao10 = string.Empty;
-        string mao11 = string.Empty;
-
         public GameViewModel()
         {
             _config              = new Configuracao("Jogador - 1", 9);
