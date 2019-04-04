@@ -1,5 +1,6 @@
 ﻿using MexeMexe.Aprexentacao.Wpf.ViewModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MexeMexe.Aprexentacao.Wpf.View
 {
@@ -19,6 +20,13 @@ namespace MexeMexe.Aprexentacao.Wpf.View
             ((GameViewModel)DataContext).StackCompraCartas.Children.Remove(t);
 
             stackAreaCompraCarta.Children.Add(t);
+
+
+            foreach (var cartaCriada in ((GameViewModel)DataContext).Cartas)
+            {
+                Image carta = cartaCriada;
+                stackAreaMaoJogador.Children.Add(carta);
+            }
         }
     }
 }
