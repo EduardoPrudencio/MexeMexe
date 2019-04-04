@@ -75,8 +75,8 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             //DependencyProperty commProp = imag.com
 
             //DependencyProperty MouseUpCommandProperty =
-            DependencyProperty.RegisterAttached(
-                              "MouseUpCommand", typeof(ICommand), typeof(MouseGesture), new FrameworkPropertyMetadata(new PropertyChangedCallback()));
+           // DependencyProperty.RegisterAttached(
+                             // "MouseUpCommand", typeof(ICommand), typeof(MouseGesture), new FrameworkPropertyMetadata(new PropertyChangedCallback()));
 
             //if (!BindingOperations.IsDataBound(img, commProp))
             //{
@@ -240,8 +240,13 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         private Image ObterImagem(string nomeDaImagem)
         {
+            string pathImages = Directory.GetCurrentDirectory();
+
+            pathImages = pathImages.Replace("bin", "@");
+            pathImages = pathImages.Split('@')[0];
+
             Image img = new Image();
-            FileStream stream            = new FileStream($"D:\\Git\\Projetos\\Pessoal\\MexeMexe\\MexeMexe\\CodigoFonte\\MexeMexe\\MexeMexe.Aprexentacao.Wpf\\img\\{nomeDaImagem}", FileMode.Open);
+            FileStream stream            = new FileStream($"{pathImages}img\\{nomeDaImagem}", FileMode.Open);
             PngBitmapDecoder iconDecoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
             ImageSource iconSource       = iconDecoder.Frames[0];
             img.Source                   = iconSource;
