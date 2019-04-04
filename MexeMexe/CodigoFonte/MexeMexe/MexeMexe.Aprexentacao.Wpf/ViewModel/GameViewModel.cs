@@ -5,6 +5,7 @@ using MexeMexe.Infraestrutura.Conteudo;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -38,20 +39,20 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         public GameViewModel()
         {
-            _config            = new Configuracao("Jogador - 1", 9);
-            _engine            = new Engine(_config);
-            player             = _engine.ObterJogador();
+            _config = new Configuracao("Jogador - 1", 9);
+            _engine = new Engine(_config);
+            player = _engine.ObterJogador();
             _stackCompraCartas = new StackPanel();
 
-            mao1  = $"{player.Mao[0].Simbolo.ToString().ToLower()}{player.Mao[0].Nipe}";
-            mao2  = $"{player.Mao[1].Simbolo.ToString().ToLower()}{player.Mao[1].Nipe}";
-            mao3  = $"{player.Mao[2].Simbolo.ToString().ToLower()}{player.Mao[2].Nipe}";
-            mao4  = $"{player.Mao[3].Simbolo.ToString().ToLower()}{player.Mao[3].Nipe}";
-            mao5  = $"{player.Mao[4].Simbolo.ToString().ToLower()}{player.Mao[4].Nipe}";
-            mao6  = $"{player.Mao[5].Simbolo.ToString().ToLower()}{player.Mao[5].Nipe}";
-            mao7  = $"{player.Mao[6].Simbolo.ToString().ToLower()}{player.Mao[6].Nipe}";
-            mao8  = $"{player.Mao[7].Simbolo.ToString().ToLower()}{player.Mao[7].Nipe}";
-            mao9  = $"{player.Mao[8].Simbolo.ToString().ToLower()}{player.Mao[8].Nipe}";
+            mao1 = $"{player.Mao[0].Simbolo.ToString().ToLower()}{player.Mao[0].Nipe}";
+            mao2 = $"{player.Mao[1].Simbolo.ToString().ToLower()}{player.Mao[1].Nipe}";
+            mao3 = $"{player.Mao[2].Simbolo.ToString().ToLower()}{player.Mao[2].Nipe}";
+            mao4 = $"{player.Mao[3].Simbolo.ToString().ToLower()}{player.Mao[3].Nipe}";
+            mao5 = $"{player.Mao[4].Simbolo.ToString().ToLower()}{player.Mao[4].Nipe}";
+            mao6 = $"{player.Mao[5].Simbolo.ToString().ToLower()}{player.Mao[5].Nipe}";
+            mao7 = $"{player.Mao[6].Simbolo.ToString().ToLower()}{player.Mao[6].Nipe}";
+            mao8 = $"{player.Mao[7].Simbolo.ToString().ToLower()}{player.Mao[7].Nipe}";
+            mao9 = $"{player.Mao[8].Simbolo.ToString().ToLower()}{player.Mao[8].Nipe}";
             mao10 = $"{player.Mao[9].Simbolo.ToString().ToLower()}{player.Mao[9].Nipe}";
             mao11 = $"{player.Mao[10].Simbolo.ToString().ToLower()}{player.Mao[10].Nipe}";
 
@@ -59,40 +60,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
             _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
 
-            Image img        = ObterImagem("cartasCompra.png");
-            img.Width        = 130;
-            _imagemDeExemplo = img;
-
-
-            _stackCompraCartas.Children.Add(img);
-
-
-            var imag = new Image();
-
-            //MouseGesture mouseGesture = new MouseGesture(MouseAction.LeftClick);
-            //DependencyProperty commProp = Rea RadMenuItem.CommandProperty;
-
-            //DependencyProperty commProp = imag.com
-
-            //DependencyProperty MouseUpCommandProperty =
-           // DependencyProperty.RegisterAttached(
-                             // "MouseUpCommand", typeof(ICommand), typeof(MouseGesture), new FrameworkPropertyMetadata(new PropertyChangedCallback()));
-
-            //if (!BindingOperations.IsDataBound(img, commProp))
-            //{
-            //    Binding binding = new Binding("PedirCartaCommand");
-            //    BindingOperations.SetBinding(img, commProp, binding);
-            //}
-
-            //this is optional, i found easier to pass the direct ref of the parameter instead of another binding (it would be a binding to ElementName).
-            //item.CommandParameter = headerlCell.Column;
-            //menu.Items.Add(item);
-
-
-            //img.SetBinding()
-
-            //SetBinding(Buttom.CommandProperty, new Binding("SaveReservationCommand"));
-
+            PrepararImagemDeCompraDeCartas();
 
         }
 
@@ -144,6 +112,19 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
                 ShowMessage("Todas as cartas já foram compradas.");
         }
 
+        private void PrepararImagemDeCompraDeCartas()
+        {
+            Image img        = ObterImagem("cartasCompra.png");
+            img.Width        = 130;
+            _imagemDeExemplo = img;
+
+            MouseGesture cmdMouseGesture = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);
+            MouseBinding cmdMouseBinding = new MouseBinding(PedirCartaCommand, cmdMouseGesture);
+
+            img.InputBindings.Add(cmdMouseBinding);
+
+            _stackCompraCartas.Children.Add(img);
+        }
 
         public StackPanel StackCompraCartas { get { return _stackCompraCartas; } }
 

@@ -11,16 +11,7 @@
 
         <StackPanel x:Name="stackAreaCompraCarta"  HorizontalAlignment="Right" VerticalAlignment="Top" Width=" auto" Height="250" Margin="0,40,20,0" >
 
-
             <!--<Control ="{Binding ImagemDeExemplo}" />-->
-
-            <!--<Image Source="../img/cartasCompra.png" Width="130"  >
-                <Image.InputBindings >
-                    <MouseBinding Gesture="LeftClick" Command="{Binding PedirCartaCommand, Mode=OneTime}"  />
-                </Image.InputBindings>
-            </Image>-->
-
-
 
             <Label Content="{Binding QuantidadeDeCartasPataCompra}" FontSize="18" FontWeight="Bold"/>
             <Label Content="{Binding QuantidadeDeJogadores}" FontSize="18" FontWeight="Bold"/>
