@@ -4,9 +4,9 @@ using MexeMexe.Implementacao.Engine;
 using MexeMexe.Infraestrutura.Conteudo;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,6 +22,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         private Image _imagemDeExemplo;
         StackPanel _stackCompraCartas;
         List<Image> _cartas;
+        List<Carta> _cartasParaJogar;
 
 
         private ICommand _selectCardCommand;
@@ -33,6 +34,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             _engine              = new Engine(_config);
             player               = _engine.ObterJogador();
             _stackCompraCartas   = new StackPanel();
+            _cartasParaJogar = new List<Carta>();
 
             _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
 
@@ -47,7 +49,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             {
                 if (_selectCardCommand == null)
                 {
-                    _selectCardCommand = new SelectCardCommand();
+                    _selectCardCommand = new SelectCardCommand(this);
                 }
 
                 return _selectCardCommand;
@@ -56,6 +58,35 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             {
                 _selectCardCommand = value;
             }
+        }
+
+
+        public void AdcionarCartaParaSerJogada(string nomeCarta)
+        {
+            string[] pedacosDoNome = nomeCarta.Split('_');
+
+            string simbolo = pedacosDoNome[1].ToLower();
+            string naipe   = pedacosDoNome[2].ToLower();
+
+            Carta c = player.Mao.FirstOrDefault(x => x.Simbolo.ToString().ToLower().Equals(simbolo) && x.Nipe.ToString().ToLower().Equals(naipe));
+
+            if(c != null)
+                _cartasParaJogar.Add(c);
+
+        }
+
+
+        public void RemoverCartaParaSerJogada(string nomeCarta)
+        {
+            string[] pedacosDoNome = nomeCarta.Split('_');
+
+            string simbolo = pedacosDoNome[1].ToLower();
+            string naipe = pedacosDoNome[2].ToLower();
+
+            Carta c = player.Mao.FirstOrDefault(x => x.Simbolo.ToString().ToLower().Equals(simbolo) && x.Nipe.ToString().ToLower().Equals(naipe));
+
+            _cartasParaJogar.Remove(c);
+
         }
 
         public ICommand PedirCartaCommand
@@ -99,7 +130,7 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
                 Image novaCarta               = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
                 novaCarta.Width               = 90;
                 string nomeDoCommandParameter = (contadorDeCartas < 10) ? $"0{contadorDeCartas.ToString()}" : contadorDeCartas.ToString();
-                novaCarta.Name                = $"carta{nomeDoCommandParameter}";
+                novaCarta.Name                = $"carta{nomeDoCommandParameter}_{carta.Simbolo.ToString().ToLower()}_{carta.Nipe}";
                 novaCarta.Margin              = new Thickness(10, 0, 0, 0);
 
                 MouseGesture mouseGesture     = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);

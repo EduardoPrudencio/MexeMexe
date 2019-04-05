@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MexeMexe.Aprexentacao.Wpf.ViewModel;
+using System;
 using System.Windows.Input;
 
 namespace MexeMexe.Aprexentacao.Wpf.Comandos
@@ -7,9 +8,11 @@ namespace MexeMexe.Aprexentacao.Wpf.Comandos
     {
         public event EventHandler CanExecuteChanged;
 
-        public SelectCardCommand()
-        { 
+        private GameViewModel _gameViewModel;
 
+        public SelectCardCommand(GameViewModel gameViewModel)
+        {
+            _gameViewModel = gameViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -22,10 +25,15 @@ namespace MexeMexe.Aprexentacao.Wpf.Comandos
             var imagem = parameter as System.Windows.Controls.Image;
 
             if (imagem.Margin.Top == -50)
-                imagem.Margin = new System.Windows.Thickness(10,0,0,0);
+            {
+                imagem.Margin = new System.Windows.Thickness(10, 0, 0, 0);
+                _gameViewModel.RemoverCartaParaSerJogada(imagem.Name);
+            }
             else
+            {
                 imagem.Margin = new System.Windows.Thickness(10, -50, 0, 0);
-
+                _gameViewModel.AdcionarCartaParaSerJogada(imagem.Name);
+            }
         }
     }
 }
