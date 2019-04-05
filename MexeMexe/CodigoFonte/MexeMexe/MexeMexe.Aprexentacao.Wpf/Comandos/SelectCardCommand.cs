@@ -38,7 +38,7 @@ namespace MexeMexe.Aprexentacao.Wpf.Comandos
                 }
                 else
                 {
-                    _gameViewModel.ShowMessage("As cartas selecionadas não podem ser descartadas porque não atendem às regras do jo. Por favor, monte outra sequência.");
+                    _gameViewModel.ShowMessage("As cartas selecionadas não podem ser descartadas porque não atendem às regras do jogo. Por favor, monte outra sequência.");
                 }
             }
         }
