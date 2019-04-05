@@ -31,8 +31,15 @@ namespace MexeMexe.Aprexentacao.Wpf.Comandos
             }
             else
             {
-                imagem.Margin = new System.Windows.Thickness(10, -50, 0, 0);
-                _gameViewModel.AdcionarCartaParaSerJogada(imagem.Name);
+                if (_gameViewModel.VerificarSePodeAdicionarCarta())
+                {
+                    imagem.Margin = new System.Windows.Thickness(10, -50, 0, 0);
+                    _gameViewModel.AdcionarCartaParaSerJogada(imagem.Name);
+                }
+                else
+                {
+                    _gameViewModel.ShowMessage("As cartas selecionadas não podem ser descartadas porque não atendem às regras do jo. Por favor, monte outra sequência.");
+                }
             }
         }
     }

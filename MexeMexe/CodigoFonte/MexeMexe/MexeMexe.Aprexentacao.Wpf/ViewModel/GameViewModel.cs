@@ -20,13 +20,13 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         Jogador player;
         string _quantidadeDeCartasPataCompra;
         private Image _imagemDeExemplo;
-        StackPanel _stackCompraCartas;
+        StackPanel  _stackCompraCartas;
         List<Image> _cartas;
         List<Carta> _cartasParaJogar;
 
-
         private ICommand _selectCardCommand;
         private ICommand _pedirCartaCommand;
+
 
         public GameViewModel()
         {
@@ -43,69 +43,24 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         }
 
-        public ICommand SelectCardCommand
+        
+
+        private Image ObterImagem(string nomeDaImagem)
         {
-            get
-            {
-                if (_selectCardCommand == null)
-                {
-                    _selectCardCommand = new SelectCardCommand(this);
-                }
+            string pathImages = Directory.GetCurrentDirectory();
 
-                return _selectCardCommand;
-            }
-            set
-            {
-                _selectCardCommand = value;
-            }
-        }
+            pathImages = pathImages.Replace("bin", "@");
+            pathImages = pathImages.Split('@')[0];
 
+            Image img = new Image();
 
-        public void AdcionarCartaParaSerJogada(string nomeCarta)
-        {
-            string[] pedacosDoNome = nomeCarta.Split('_');
+            string pathImage = $"{pathImages}img\\{nomeDaImagem}";
 
-            string simbolo = pedacosDoNome[1].ToLower();
-            string naipe   = pedacosDoNome[2].ToLower();
-
-            Carta c = player.Mao.FirstOrDefault(x => x.Simbolo.ToString().ToLower().Equals(simbolo) && x.Nipe.ToString().ToLower().Equals(naipe));
-
-            if(c != null)
-                _cartasParaJogar.Add(c);
-
-        }
-
-
-        public void RemoverCartaParaSerJogada(string nomeCarta)
-        {
-            string[] pedacosDoNome = nomeCarta.Split('_');
-
-            string simbolo = pedacosDoNome[1].ToLower();
-            string naipe = pedacosDoNome[2].ToLower();
-
-            Carta c = player.Mao.FirstOrDefault(x => x.Simbolo.ToString().ToLower().Equals(simbolo) && x.Nipe.ToString().ToLower().Equals(naipe));
-
-            _cartasParaJogar.Remove(c);
-
-        }
-
-        public ICommand PedirCartaCommand
-        {
-            get
-            {
-                if (_pedirCartaCommand == null)
-                {
-                    _pedirCartaCommand = new PedirCartaCommand();
-
-                    ((PedirCartaCommand)_pedirCartaCommand).OnPedirCartas += GameViewModel_OnPedirCartas;
-                }
-
-                return _pedirCartaCommand;
-            }
-            set
-            {
-                _pedirCartaCommand = value;
-            }
+            Stream stream = new FileStream(pathImage, FileMode.Open, FileAccess.Read);
+            PngBitmapDecoder iconDecoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+            ImageSource iconSource = iconDecoder.Frames[0];
+            img.Source = iconSource;
+            return img;
         }
 
         private void GameViewModel_OnPedirCartas(object sender, System.EventArgs e)
@@ -127,14 +82,14 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
             foreach (var carta in player.Mao)
             {
-                Image novaCarta               = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
-                novaCarta.Width               = 90;
+                Image novaCarta = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
+                novaCarta.Width = 90;
                 string nomeDoCommandParameter = (contadorDeCartas < 10) ? $"0{contadorDeCartas.ToString()}" : contadorDeCartas.ToString();
-                novaCarta.Name                = $"carta{nomeDoCommandParameter}_{carta.Simbolo.ToString().ToLower()}_{carta.Nipe}";
-                novaCarta.Margin              = new Thickness(10, 0, 0, 0);
+                novaCarta.Name = $"carta{nomeDoCommandParameter}_{carta.Simbolo.ToString().ToLower()}_{carta.Nipe}";
+                novaCarta.Margin = new Thickness(10, 0, 0, 0);
 
-                MouseGesture mouseGesture     = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);
-                MouseBinding mouseBinding     = new MouseBinding(SelectCardCommand, mouseGesture);
+                MouseGesture mouseGesture = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);
+                MouseBinding mouseBinding = new MouseBinding(SelectCardCommand, mouseGesture);
                 mouseBinding.CommandParameter = novaCarta;
 
                 novaCarta.InputBindings.Add(mouseBinding);
@@ -147,8 +102,8 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         private void PrepararImagemDeCompraDeCartas()
         {
-            Image img        = ObterImagem("cartasCompra.png");
-            img.Width        = 130;
+            Image img = ObterImagem("cartasCompra.png");
+            img.Width = 130;
             _imagemDeExemplo = img;
 
             MouseGesture cmdMouseGesture = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);
@@ -157,6 +112,94 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             img.InputBindings.Add(cmdMouseBinding);
 
             _stackCompraCartas.Children.Add(img);
+        }
+
+
+        public void AdcionarCartaParaSerJogada(string nomeCarta)
+        {
+            string[] pedacosDoNome = nomeCarta.Split('_');
+
+            string simbolo = pedacosDoNome[1].ToLower();
+            string naipe   = pedacosDoNome[2].ToLower();
+
+            Carta c = player.Mao.FirstOrDefault(x => x.Simbolo.ToString().ToLower().Equals(simbolo) && x.Nipe.ToString().ToLower().Equals(naipe));
+
+            if(c != null)
+                _cartasParaJogar.Add(c);
+
+        }
+
+        public void RemoverCartaParaSerJogada(string nomeCarta)
+        {
+            string[] pedacosDoNome = nomeCarta.Split('_');
+
+            string simbolo = pedacosDoNome[1].ToLower();
+            string naipe = pedacosDoNome[2].ToLower();
+
+            Carta c = player.Mao.FirstOrDefault(x => x.Simbolo.ToString().ToLower().Equals(simbolo) && x.Nipe.ToString().ToLower().Equals(naipe));
+
+            _cartasParaJogar.Remove(c);
+
+        }
+
+        public ICommand SelectCardCommand
+        {
+            get
+            {
+                if (_selectCardCommand == null)
+                {
+                    _selectCardCommand = new SelectCardCommand(this);
+                }
+
+                return _selectCardCommand;
+            }
+            set
+            {
+                _selectCardCommand = value;
+            }
+        }
+
+        public ICommand PedirCartaCommand
+        {
+            get
+            {
+                if (_pedirCartaCommand == null)
+                {
+                    _pedirCartaCommand = new PedirCartaCommand();
+
+                    ((PedirCartaCommand)_pedirCartaCommand).OnPedirCartas += GameViewModel_OnPedirCartas;
+                }
+
+                return _pedirCartaCommand;
+            }
+            set
+            {
+                _pedirCartaCommand = value;
+            }
+        }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        public bool VerificarSePodeAdicionarCarta()
+        {
+            bool mesmoSimbolo = true;
+
+            if (_cartasParaJogar.Count >= 3)
+            {
+                for (int i = 0; i < _cartasParaJogar.Count; i++)
+                {
+
+                    if (i == 0)
+                        continue;
+
+                    mesmoSimbolo = _cartasParaJogar[i - 1].Simbolo == _cartasParaJogar[i].Simbolo;
+                }
+            }
+
+            return mesmoSimbolo;
         }
 
         public StackPanel StackCompraCartas { get { return _stackCompraCartas; } }
@@ -181,27 +224,6 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         public string QuantidadeDeJogadores { get { return $"{_engine.QuantidadeDeJogadores} jogadores na mesa"; } set { QuantidadeDeJogadores = value; } }
 
-        private void ShowMessage(string message)
-        {
-            MessageBox.Show(message);
-        }
-
-        private Image ObterImagem(string nomeDaImagem)
-        {
-            string pathImages = Directory.GetCurrentDirectory();
-
-            pathImages = pathImages.Replace("bin", "@");
-            pathImages = pathImages.Split('@')[0];
-
-            Image img = new Image();
-
-            string pathImage = $"{pathImages}img\\{nomeDaImagem}";
-
-            Stream stream                = new FileStream(pathImage, FileMode.Open, FileAccess.Read);
-            PngBitmapDecoder iconDecoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-            ImageSource iconSource       = iconDecoder.Frames[0];
-            img.Source                   = iconSource;
-            return img;
-        }
+       
     }
 }
