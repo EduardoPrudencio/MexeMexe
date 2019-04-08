@@ -27,8 +27,11 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
 
         private ICommand _selectCardCommand;
         private ICommand _pedirCartaCommand;
+        private ICommand _jogarCartasCommand;
 
-        public event EventHandler MouAMAoDoJogador;
+        public event EventHandler MudouAMaoDoJogador;
+        public event EventHandler PodeJogarCartasSelecionadas;
+        public event EventHandler NaoPodeJogarCartasSelecionadas;
 
         public GameViewModel()
         {
@@ -43,7 +46,17 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
 
         public void NotificarMudacaoDaMaoDoJogador()
         {
-           MouAMAoDoJogador(this, EventArgs.Empty);
+           MudouAMaoDoJogador(this, EventArgs.Empty);
+        }
+
+        public void NotificarQueAsCartasPodemSerJogadas()
+        {
+            PodeJogarCartasSelecionadas(this, EventArgs.Empty);
+        }
+
+        public void NotificarQueAsCartasNaoPodemSerJogadas()
+        {
+            NaoPodeJogarCartasSelecionadas(this, EventArgs.Empty);
         }
 
 
@@ -143,7 +156,14 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
 
         public bool ValidarCartasParaJogar()
         {
-            return _engine.VerificarSePodeAdicionarCarta(_cartasParaJogar);
+            bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(_cartasParaJogar);
+
+            if (_cartasParaJogar.Count() >= 3 && podeSeguir)
+                NotificarQueAsCartasPodemSerJogadas();
+            else
+                NotificarQueAsCartasNaoPodemSerJogadas();
+
+            return podeSeguir;
         }
 
         public void AdcionarCartaParaSerJogada(string nomeCarta)
@@ -208,6 +228,27 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
                 _pedirCartaCommand = value;
             }
         }
+
+        public ICommand JogarCartasCommand
+        {
+            get
+            {
+                if (_jogarCartasCommand == null)
+                {
+                    _jogarCartasCommand = new JogarCartasCommand();
+
+                    //((JogarCartasCommand)_jogarCartasCommand).OnPedirCartas += GameViewModel_OnPedirCartas;
+                }
+
+                return _jogarCartasCommand;
+            }
+            set
+            {
+                _pedirCartaCommand = value;
+            }
+        }
+
+
 
         public void ShowMessage(string message)
         {

@@ -20,7 +20,9 @@ namespace MexeMexe.Apresentacao.Wpf.View
 
             DataContext = gameViewModel;
 
-            gameViewModel.MouAMAoDoJogador += GameViewModel_MouAMAoDoJogador;
+            gameViewModel.MudouAMaoDoJogador += GameViewModel_MouAMAoDoJogador;
+            gameViewModel.PodeJogarCartasSelecionadas += GameViewModel_PodeJogarCartasSelecionadas;
+            gameViewModel.NaoPodeJogarCartasSelecionadas += GameViewModel_NaoPodeJogarCartasSelecionadas;
 
             var t = ((GameViewModel)DataContext).StackCompraCartas.Children[0];
 
@@ -31,7 +33,15 @@ namespace MexeMexe.Apresentacao.Wpf.View
             MontarTela();
         }
 
+        private void GameViewModel_NaoPodeJogarCartasSelecionadas(object sender, System.EventArgs e)
+        {
+            stackIndicadorPodeJogar.Visibility = Visibility.Hidden;
+        }
 
+        private void GameViewModel_PodeJogarCartasSelecionadas(object sender, System.EventArgs e)
+        {
+            stackIndicadorPodeJogar.Visibility = Visibility.Visible;
+        }
 
         private void GameViewModel_MouAMAoDoJogador(object sender, System.EventArgs e)
         {
@@ -52,3 +62,4 @@ namespace MexeMexe.Apresentacao.Wpf.View
 
     }
 }
+

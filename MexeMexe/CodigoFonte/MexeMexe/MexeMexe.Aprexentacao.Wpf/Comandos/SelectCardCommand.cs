@@ -43,6 +43,8 @@ namespace MexeMexe.Apresentacao.Wpf.Comandos
                     imagem.Margin = new System.Windows.Thickness(10, 0, 0, 0);
                 }
             }
+
+            _gameViewModel.ValidarCartasParaJogar();
         }
     }
 }

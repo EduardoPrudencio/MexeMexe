@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Comandos\JogarCartasCommand.cs" />
     <Compile Include="Comandos\PedirCartaCommand.cs" />
     <Compile Include="Comandos\SelectCardCommand.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />
@@ -180,6 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\cartasCompra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\jogar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
