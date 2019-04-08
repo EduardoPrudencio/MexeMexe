@@ -50,7 +50,6 @@ namespace MexeMexe.Apresentacao.Wpf.View
 
         private void MontarTela()
         {
-
             stackAreaMaoJogador.Children.Clear();
 
             foreach (var cartaCriada in ((GameViewModel)DataContext).Cartas)

@@ -85,6 +85,7 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
                 Carta carta = _engine.PedirCarta();
                 _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
                 player.Mao.Add(carta);
+                _cartasParaJogar = new List<Carta>();
                 PrepararImagemDoBaralhoDoJogador();
                 NotificarMudacaoDaMaoDoJogador();
                 NotifyPropertyChange(nameof(QuantidadeDeCartasPataCompra));
@@ -166,6 +167,18 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             return podeSeguir;
         }
 
+        public void DescratarCartas()
+        {
+            foreach (var carta in _cartasParaJogar)
+                player.Mao.Remove(carta);
+
+            _cartasParaJogar = new List<Carta>();
+
+            PrepararImagemDoBaralhoDoJogador();
+            NotificarQueAsCartasNaoPodemSerJogadas();
+            NotificarMudacaoDaMaoDoJogador();
+        }
+
         public void AdcionarCartaParaSerJogada(string nomeCarta)
         {
             string[] pedacosDoNome = nomeCarta.Split('_');
@@ -235,9 +248,7 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             {
                 if (_jogarCartasCommand == null)
                 {
-                    _jogarCartasCommand = new JogarCartasCommand();
-
-                    //((JogarCartasCommand)_jogarCartasCommand).OnPedirCartas += GameViewModel_OnPedirCartas;
+                    _jogarCartasCommand = new JogarCartasCommand(this);
                 }
 
                 return _jogarCartasCommand;
