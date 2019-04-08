@@ -2,6 +2,7 @@
 using MexeMexe.Dominio.Modelo;
 using MexeMexe.Implementacao.Engine;
 using MexeMexe.Infraestrutura.Conteudo;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
         private ICommand _selectCardCommand;
         private ICommand _pedirCartaCommand;
 
+        public event EventHandler MouAMAoDoJogador;
 
         public GameViewModel()
         {
@@ -37,6 +39,11 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
         {
             IniciarDados();
             _cartasParaJogar.AddRange(cartasParaJogar);
+        }
+
+        public void NotificarMudacaoDaMaoDoJogador()
+        {
+           MouAMAoDoJogador(this, EventArgs.Empty);
         }
 
 
@@ -64,6 +71,9 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             {
                 Carta carta = _engine.PedirCarta();
                 _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
+                player.Mao.Add(carta);
+                PrepararImagemDoBaralhoDoJogador();
+                NotificarMudacaoDaMaoDoJogador();
                 NotifyPropertyChange(nameof(QuantidadeDeCartasPataCompra));
             }
             else
@@ -77,23 +87,30 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
 
             foreach (var carta in player.Mao)
             {
-                Image novaCarta               = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
-                novaCarta.Width               = 90;
-                string nomeDoCommandParameter = (contadorDeCartas < 10) ? $"0{contadorDeCartas.ToString()}" : contadorDeCartas.ToString();
-                novaCarta.Name                = $"carta{nomeDoCommandParameter}_{carta.Simbolo.ToString().ToLower()}_{carta.Nipe}";
-                novaCarta.Margin              = new Thickness(10, 0, 0, 0);
-
-                MouseGesture mouseGesture = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);
-                MouseBinding mouseBinding = new MouseBinding(SelectCardCommand, mouseGesture);
-
-                mouseBinding.CommandParameter = novaCarta;
-
-                novaCarta.InputBindings.Add(mouseBinding);
+                Image novaCarta = ObterImagemDaCarta(carta, (contadorDeCartas < 10) ? $"0{contadorDeCartas.ToString()}" : contadorDeCartas.ToString());
 
                 _cartas.Add(novaCarta);
 
                 contadorDeCartas++;
             }
+        }
+
+        private Image ObterImagemDaCarta(Carta carta, string commandParameterName)
+        {
+            Image novaCarta               = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
+            novaCarta.Width               = 90;
+            string nomeDoCommandParameter = commandParameterName;
+            novaCarta.Name                = $"carta{nomeDoCommandParameter}_{carta.Simbolo.ToString().ToLower()}_{carta.Nipe}";
+            novaCarta.Margin              = new Thickness(10, 0, 0, 0);
+
+            MouseGesture mouseGesture = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);
+            MouseBinding mouseBinding = new MouseBinding(SelectCardCommand, mouseGesture);
+
+            mouseBinding.CommandParameter = novaCarta;
+
+            novaCarta.InputBindings.Add(mouseBinding);
+
+            return novaCarta;
         }
 
         private void PrepararImagemDeCompraDeCartas()
@@ -217,7 +234,6 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
         }
 
         public string QuantidadeDeJogadores { get { return $"{_engine.QuantidadeDeJogadores} jogadores na mesa"; } set { QuantidadeDeJogadores = value; } }
-
        
     }
 }

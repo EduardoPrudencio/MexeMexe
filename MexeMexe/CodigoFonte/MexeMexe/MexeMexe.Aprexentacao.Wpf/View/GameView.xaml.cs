@@ -9,11 +9,18 @@ namespace MexeMexe.Apresentacao.Wpf.View
     /// </summary>
     public partial class GameView : Window
     {
+
+        GameViewModel gameViewModel;
+
         public GameView()
         {
             InitializeComponent();
 
-            DataContext = new GameViewModel();
+            gameViewModel = new GameViewModel();
+
+            DataContext = gameViewModel;
+
+            gameViewModel.MouAMAoDoJogador += GameViewModel_MouAMAoDoJogador;
 
             var t = ((GameViewModel)DataContext).StackCompraCartas.Children[0];
 
@@ -21,6 +28,20 @@ namespace MexeMexe.Apresentacao.Wpf.View
 
             stackAreaCompraCarta.Children.Add(t);
 
+            MontarTela();
+        }
+
+
+
+        private void GameViewModel_MouAMAoDoJogador(object sender, System.EventArgs e)
+        {
+            MontarTela();
+        }
+
+        private void MontarTela()
+        {
+
+            stackAreaMaoJogador.Children.Clear();
 
             foreach (var cartaCriada in ((GameViewModel)DataContext).Cartas)
             {
@@ -28,5 +49,6 @@ namespace MexeMexe.Apresentacao.Wpf.View
                 stackAreaMaoJogador.Children.Add(carta);
             }
         }
+
     }
 }
