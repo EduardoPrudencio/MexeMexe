@@ -19,7 +19,7 @@ namespace MexeMexe.Testes
         }
 
         [Fact]
-        public void Tres_Cartas_De_Nipe_Iguais_Deve_Retornar_True()
+        public void Tres_Cartas_De_Simbolo_Iguais_Deve_Retornar_True()
         {
             List<Carta> cartasSeparadasParaJogar = new List<Carta>
             {
@@ -35,7 +35,7 @@ namespace MexeMexe.Testes
         }
 
         [Fact]
-        public void Quatro_Cartas_De_Nipe_Iguais_Deve_Retornar_True()
+        public void Quatro_Cartas_De_Simbolo_Iguais_Deve_Retornar_True()
         {
             List<Carta> cartasSeparadasParaJogar = new List<Carta>
             {
@@ -52,7 +52,7 @@ namespace MexeMexe.Testes
         }
 
         [Fact]
-        public void Duas_Cartas_De_Nipe_Igual_E_Uma_Diferente_Deve_Retornar_False()
+        public void Duas_Cartas_De_Simbolo_Igual_E_Uma_Diferente_Deve_Retornar_False()
         {
             List<Carta> cartasSeparadasParaJogar = new List<Carta>
             {
@@ -68,7 +68,7 @@ namespace MexeMexe.Testes
         }
 
         [Fact]
-        public void Tres_Cartas_De_Nipe_Igual_E_Uma_Diferente_Deve_Retornar_False()
+        public void Tres_Cartas_De_Simbolo_Igual_E_Uma_Diferente_Deve_Retornar_False()
         {
             List<Carta> cartasSeparadasParaJogar = new List<Carta>
             {
@@ -81,6 +81,23 @@ namespace MexeMexe.Testes
             bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(cartasSeparadasParaJogar);
 
             Assert.False(podeSeguir);
+
+        }
+
+
+        [Fact]
+        public void Tres_Cartas_De_Nipe_Iguais_E_EM_Sequencia_Deve_Retornar_True()
+        {
+            List<Carta> cartasSeparadasParaJogar = new List<Carta>
+            {
+                new Carta(NipeEnum.Copas, SimboloEnum.Dois,"01"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Quatro,"02"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Tres,"03"),
+            };
+
+            bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(cartasSeparadasParaJogar);
+
+            Assert.True(podeSeguir);
 
         }
     }

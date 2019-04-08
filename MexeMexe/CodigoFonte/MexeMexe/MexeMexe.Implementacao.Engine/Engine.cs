@@ -92,13 +92,25 @@ namespace MexeMexe.Implementacao.Engine
         public bool VerificarSePodeAdicionarCarta(List<Carta> _cartasParaJogar) 
         {
             bool mesmoSimbolo      = false;
+            bool mesmoNipe         = false;
             bool sequenciaDeCartas = false;
 
             if (_cartasParaJogar.Count >= 2)
             {
+
                 for (int i = 0; i < _cartasParaJogar.Count; i++)
                 {
+                    if (i == 0)
+                        continue;
 
+                    mesmoNipe = _cartasParaJogar[i - 1].Nipe == _cartasParaJogar[i].Nipe;
+
+                    if (!mesmoNipe)
+                        break;
+                }
+
+                for (int i = 0; i < _cartasParaJogar.Count; i++)
+                {
                     if (i == 0)
                         continue;
 
@@ -108,27 +120,22 @@ namespace MexeMexe.Implementacao.Engine
                         break;
                 }
 
-                //if (!mesmoSimbolo)
-                //{
-                //    bool mesmoNaipe = false;
+                var cartasOrdenadas = _cartasParaJogar.OrderBy(x => x.Simbolo).ToList();
 
-                //    for (int i = 0; i < _cartasParaJogar.Count; i++)
-                //    {
-                //        if (i == 0)
-                //            continue;
+                for (int i = 0; i < cartasOrdenadas.Count; i++)
+                {
+                    if (i == 0)
+                        continue;
 
-                //        mesmoNaipe = _cartasParaJogar[i - 1].Nipe == _cartasParaJogar[i].Nipe;
-                //    }
+                    sequenciaDeCartas = cartasOrdenadas[i].Simbolo == (cartasOrdenadas[i -1].Simbolo +1);
 
-                //    if (mesmoNaipe)
-                //    {
-                //        var cartasOrdenadas = _cartasParaJogar.OrderBy(x => x.Simbolo);
-                //    }
-                //}
+                    if (!sequenciaDeCartas)
+                        break;
+                }
 
             }
 
-            return mesmoSimbolo || sequenciaDeCartas;
+            return mesmoSimbolo || (sequenciaDeCartas && mesmoNipe);
         }
 
         private List<Carta> CriarBaralho()
