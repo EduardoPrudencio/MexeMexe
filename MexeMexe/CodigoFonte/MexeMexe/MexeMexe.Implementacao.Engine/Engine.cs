@@ -133,9 +133,10 @@ namespace MexeMexe.Implementacao.Engine
                         break;
                 }
 
+                return mesmoSimbolo || (sequenciaDeCartas && mesmoNipe);
             }
 
-            return mesmoSimbolo || (sequenciaDeCartas && mesmoNipe);
+            return true;
         }
 
         private List<Carta> CriarBaralho()

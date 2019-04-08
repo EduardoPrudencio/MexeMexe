@@ -20,7 +20,7 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
         Jogador player;
         string _quantidadeDeCartasPataCompra;
         private Image _imagemDeExemplo;
-        StackPanel  _stackCompraCartas;
+        StackPanel _stackCompraCartas;
         List<Image> _cartas;
         List<Carta> _cartasParaJogar;
 
@@ -51,10 +51,10 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
 
             string pathImage = $"{pathImages}img\\{nomeDaImagem}";
 
-            Stream stream = new FileStream(pathImage, FileMode.Open, FileAccess.Read);
+            Stream stream                = new FileStream(pathImage, FileMode.Open, FileAccess.Read);
             PngBitmapDecoder iconDecoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-            ImageSource iconSource = iconDecoder.Frames[0];
-            img.Source = iconSource;
+            ImageSource iconSource       = iconDecoder.Frames[0];
+            img.Source                   = iconSource;
             return img;
         }
 
@@ -77,14 +77,15 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
 
             foreach (var carta in player.Mao)
             {
-                Image novaCarta = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
-                novaCarta.Width = 90;
+                Image novaCarta               = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
+                novaCarta.Width               = 90;
                 string nomeDoCommandParameter = (contadorDeCartas < 10) ? $"0{contadorDeCartas.ToString()}" : contadorDeCartas.ToString();
-                novaCarta.Name = $"carta{nomeDoCommandParameter}_{carta.Simbolo.ToString().ToLower()}_{carta.Nipe}";
-                novaCarta.Margin = new Thickness(10, 0, 0, 0);
+                novaCarta.Name                = $"carta{nomeDoCommandParameter}_{carta.Simbolo.ToString().ToLower()}_{carta.Nipe}";
+                novaCarta.Margin              = new Thickness(10, 0, 0, 0);
 
                 MouseGesture mouseGesture = new MouseGesture(MouseAction.LeftClick, ModifierKeys.None);
                 MouseBinding mouseBinding = new MouseBinding(SelectCardCommand, mouseGesture);
+
                 mouseBinding.CommandParameter = novaCarta;
 
                 novaCarta.InputBindings.Add(mouseBinding);
@@ -123,6 +124,10 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             PrepararImagemDoBaralhoDoJogador();
         }
 
+        public bool ValidarCartasParaJogar()
+        {
+            return _engine.VerificarSePodeAdicionarCarta(_cartasParaJogar);
+        }
 
         public void AdcionarCartaParaSerJogada(string nomeCarta)
         {
