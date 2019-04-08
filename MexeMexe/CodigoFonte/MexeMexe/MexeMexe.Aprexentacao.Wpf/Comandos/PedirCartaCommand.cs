@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MexeMexe.Aprexentacao.Wpf.Comandos
+namespace MexeMexe.Apresentacao.Wpf.Comandos
 {
     public class PedirCartaCommand : ICommand
     {

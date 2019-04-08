@@ -1,8 +1,8 @@
-﻿using MexeMexe.Aprexentacao.Wpf.ViewModel;
+﻿using MexeMexe.Apresentacao.Wpf.ViewModel;
 using System;
 using System.Windows.Input;
 
-namespace MexeMexe.Aprexentacao.Wpf.Comandos
+namespace MexeMexe.Apresentacao.Wpf.Comandos
 {
     public class SelectCardCommand : ICommand
     {

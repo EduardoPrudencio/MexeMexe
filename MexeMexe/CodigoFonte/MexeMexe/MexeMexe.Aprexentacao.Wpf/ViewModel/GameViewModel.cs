@@ -1,4 +1,4 @@
-﻿using MexeMexe.Aprexentacao.Wpf.Comandos;
+﻿using MexeMexe.Apresentacao.Wpf.Comandos;
 using MexeMexe.Dominio.Modelo;
 using MexeMexe.Implementacao.Engine;
 using MexeMexe.Infraestrutura.Conteudo;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace MexeMexe.Aprexentacao.Wpf.ViewModel
+namespace MexeMexe.Apresentacao.Wpf.ViewModel
 {
     public class GameViewModel : ViewModelBase
     {
@@ -30,20 +30,15 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
 
         public GameViewModel()
         {
-            _config              = new Configuracao("Jogador - 1", 9);
-            _engine              = new Engine(_config);
-            player               = _engine.ObterJogador();
-            _stackCompraCartas   = new StackPanel();
-            _cartasParaJogar = new List<Carta>();
-
-            _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
-
-            PrepararImagemDeCompraDeCartas();
-            PrepararImagemDoBaralhoDoJogador();
-
+            IniciarDados();
         }
 
-        
+        public GameViewModel(List<Carta> cartasParaJogar)
+        {
+            IniciarDados();
+            _cartasParaJogar.AddRange(cartasParaJogar);
+        }
+
 
         private Image ObterImagem(string nomeDaImagem)
         {
@@ -112,6 +107,20 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
             img.InputBindings.Add(cmdMouseBinding);
 
             _stackCompraCartas.Children.Add(img);
+        }
+
+        private void IniciarDados()
+        {
+            _config            = new Configuracao("Jogador - 1", 9);
+            _engine            = new Engine(_config);
+            player             = _engine.ObterJogador();
+            _stackCompraCartas = new StackPanel();
+            _cartasParaJogar   = new List<Carta>();
+
+            _quantidadeDeCartasPataCompra = _engine.QuantidadeDeCartas.ToString();
+
+            PrepararImagemDeCompraDeCartas();
+            PrepararImagemDoBaralhoDoJogador();
         }
 
 
@@ -230,8 +239,6 @@ namespace MexeMexe.Aprexentacao.Wpf.ViewModel
         public Image ImagemDeExemplo { get { return _imagemDeExemplo; } set { _imagemDeExemplo = value; NotifyPropertyChange(nameof(_imagemDeExemplo)); } }
 
         public string Detalhes { get { return $"Mexe Mexe - {player.Nome}"; } set { Detalhes = value; NotifyPropertyChange(nameof(Detalhes)); } }
-
-        public Thickness pocicaoUm { get { return new Thickness(10, 0, 0, 0); } set { pocicaoUm = value; NotifyPropertyChange(nameof(pocicaoUm)); } }
 
         public string QuantidadeDeCartasPataCompra
         {

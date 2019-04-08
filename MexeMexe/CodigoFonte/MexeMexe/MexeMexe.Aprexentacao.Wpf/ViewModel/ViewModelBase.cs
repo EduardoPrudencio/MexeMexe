@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MexeMexe.Aprexentacao.Wpf.ViewModel
+namespace MexeMexe.Apresentacao.Wpf.ViewModel
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

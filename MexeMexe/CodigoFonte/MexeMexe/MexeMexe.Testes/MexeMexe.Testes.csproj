@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MexeMexe.Aprexentacao.Wpf\MexeMexe.Apresentacao.Wpf.csproj" />
     <ProjectReference Include="..\MexeMexe.Implementacao.Engine\MexeMexe.Implementacao.Engine.csproj" />
     <ProjectReference Include="..\MexeMexe.Infraestrutura.Conteudo\MexeMexe.Infraestrutura.Conteudo.csproj" />
   </ItemGroup>

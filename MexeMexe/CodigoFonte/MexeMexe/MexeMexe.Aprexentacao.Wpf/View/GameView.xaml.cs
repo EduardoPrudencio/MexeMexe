@@ -1,8 +1,8 @@
-﻿using MexeMexe.Aprexentacao.Wpf.ViewModel;
+﻿using MexeMexe.Apresentacao.Wpf.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MexeMexe.Aprexentacao.Wpf.View
+namespace MexeMexe.Apresentacao.Wpf.View
 {
     /// <summary>
     /// Interaction logic for GameView.xaml
