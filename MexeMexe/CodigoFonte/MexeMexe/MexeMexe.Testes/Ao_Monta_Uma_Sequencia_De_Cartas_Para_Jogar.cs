@@ -86,7 +86,7 @@ namespace MexeMexe.Testes
 
 
         [Fact]
-        public void Tres_Cartas_De_Nipe_Iguais_E_EM_Sequencia_Deve_Retornar_True()
+        public void Tres_Cartas_De_Nipe_Iguais_E_Em_Sequencia_Deve_Retornar_True()
         {
             List<Carta> cartasSeparadasParaJogar = new List<Carta>
             {
@@ -98,6 +98,76 @@ namespace MexeMexe.Testes
             bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(cartasSeparadasParaJogar);
 
             Assert.True(podeSeguir);
+
+        }
+
+        [Fact]
+        public void Cinco_Cartas_De_Nipe_Iguais_E_Em_Sequencia_Deve_Retornar_True()
+        {
+            List<Carta> cartasSeparadasParaJogar = new List<Carta>
+            {
+                new Carta(NipeEnum.Copas, SimboloEnum.Dois,"01"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Quatro,"02"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Tres,"03"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Seis,"04"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Cinco,"05"),
+            };
+
+            bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(cartasSeparadasParaJogar);
+
+            Assert.True(podeSeguir);
+
+        }
+
+        [Fact]
+        public void Tres_Cartas_De_Nipe_Diferentes_E_Em_Sequencia_Deve_Retornar_False()
+        {
+            List<Carta> cartasSeparadasParaJogar = new List<Carta>
+            {
+                new Carta(NipeEnum.Copas, SimboloEnum.Dois,"01"),
+                new Carta(NipeEnum.Espada, SimboloEnum.Quatro,"02"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Tres,"03"),
+            };
+
+            bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(cartasSeparadasParaJogar);
+
+            Assert.False(podeSeguir);
+
+        }
+
+        [Fact]
+        public void Cinco_Cartas_De_Nipe_Diferentes_E_Em_Sequencia_Deve_Retornar_False()
+        {
+            List<Carta> cartasSeparadasParaJogar = new List<Carta>
+            {
+                new Carta(NipeEnum.Copas, SimboloEnum.Dois,"01"),
+                new Carta(NipeEnum.Ouro, SimboloEnum.Quatro,"02"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Tres,"03"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Seis,"04"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Cinco,"05"),
+            };
+
+            bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(cartasSeparadasParaJogar);
+
+            Assert.False(podeSeguir);
+
+        }
+
+        [Fact]
+        public void Cinco_Cartas_De_Nipe_Iguais_E_Fora_De_Sequencia_Deve_Retornar_False()
+        {
+            List<Carta> cartasSeparadasParaJogar = new List<Carta>
+            {
+                new Carta(NipeEnum.Copas, SimboloEnum.Dois,"01"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Quatro,"02"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Tres,"03"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Sete,"04"),
+                new Carta(NipeEnum.Copas, SimboloEnum.Cinco,"05"),
+            };
+
+            bool podeSeguir = _engine.VerificarSePodeAdicionarCarta(cartasSeparadasParaJogar);
+
+            Assert.False(podeSeguir);
 
         }
     }
