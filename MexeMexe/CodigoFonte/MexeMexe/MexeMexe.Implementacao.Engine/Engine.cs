@@ -89,6 +89,47 @@ namespace MexeMexe.Implementacao.Engine
             return cartaComprada;
         }
 
+        public bool VerificarSePodeAdicionarCarta(List<Carta> _cartasParaJogar) 
+        {
+            bool mesmoSimbolo      = false;
+            bool sequenciaDeCartas = false;
+
+            if (_cartasParaJogar.Count >= 2)
+            {
+                for (int i = 0; i < _cartasParaJogar.Count; i++)
+                {
+
+                    if (i == 0)
+                        continue;
+
+                    mesmoSimbolo = _cartasParaJogar[i - 1].Simbolo == _cartasParaJogar[i].Simbolo;
+
+                    if (!mesmoSimbolo)
+                        break;
+                }
+
+                //if (!mesmoSimbolo)
+                //{
+                //    bool mesmoNaipe = false;
+
+                //    for (int i = 0; i < _cartasParaJogar.Count; i++)
+                //    {
+                //        if (i == 0)
+                //            continue;
+
+                //        mesmoNaipe = _cartasParaJogar[i - 1].Nipe == _cartasParaJogar[i].Nipe;
+                //    }
+
+                //    if (mesmoNaipe)
+                //    {
+                //        var cartasOrdenadas = _cartasParaJogar.OrderBy(x => x.Simbolo);
+                //    }
+                //}
+
+            }
+
+            return mesmoSimbolo || sequenciaDeCartas;
+        }
 
         private List<Carta> CriarBaralho()
         {

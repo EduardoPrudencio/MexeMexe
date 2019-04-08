@@ -192,45 +192,6 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             MessageBox.Show(message);
         }
 
-        //PASSAR PA A ENGINE
-        public bool VerificarSePodeAdicionarCarta()
-        {
-            bool mesmoSimbolo       = true;
-            bool podeAdicionarCarta = true;
-
-            if (_cartasParaJogar.Count >= 2)
-            {
-                for (int i = 0; i < _cartasParaJogar.Count; i++)
-                {
-
-                    if (i == 0)
-                        continue;
-
-                    mesmoSimbolo = _cartasParaJogar[i - 1].Simbolo == _cartasParaJogar[i].Simbolo;
-                }
-
-                if (!mesmoSimbolo)
-                {
-                    bool mesmoNaipe = false;
-
-                    for (int i = 0; i < _cartasParaJogar.Count; i++)
-                    {
-                        if (i == 0)
-                            continue;
-
-                        mesmoNaipe = _cartasParaJogar[i - 1].Nipe == _cartasParaJogar[i].Nipe;
-                    }
-
-                    if (mesmoNaipe)
-                    {
-                        var cartasOrdenadas = _cartasParaJogar.OrderBy(x => x.Simbolo);
-                    }
-                }
-
-            }
-
-            return mesmoSimbolo;
-        }
 
         public StackPanel StackCompraCartas { get { return _stackCompraCartas; } }
 
