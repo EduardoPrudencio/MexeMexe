@@ -20,7 +20,7 @@
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
 
                
-                <StackPanel x:Name="stackAreaCompraCarta"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="Top" Height="250" Margin="0,0,0,0" >
+                <StackPanel x:Name="stackAreaCompraCarta"  HorizontalAlignment="Right" VerticalAlignment="Top" Width="auto" Height="250" Margin="0,0,0,0" >
                     <Label Content="{Binding QuantidadeDeCartasPataCompra}" FontSize="18" FontWeight="Bold"/>
                     <Label Content="{Binding QuantidadeDeJogadores}" FontSize="18" FontWeight="Bold"/>
                 </StackPanel>
