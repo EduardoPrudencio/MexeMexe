@@ -32,6 +32,7 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
         public event EventHandler MudouAMaoDoJogador;
         public event EventHandler PodeJogarCartasSelecionadas;
         public event EventHandler NaoPodeJogarCartasSelecionadas;
+        public event EventHandler HouveDescarte;
 
         public GameViewModel()
         {
@@ -59,6 +60,24 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             NaoPodeJogarCartasSelecionadas(this, EventArgs.Empty);
         }
 
+        public void NotifcarDescarte()
+        {
+            HouveDescarte(this, EventArgs.Empty);
+        }
+
+        private List<Image> RetornarCartasDescartadas()
+        {
+            List<Image> cartas = new List<Image>();
+
+            foreach (var carta in _cartasParaJogar)
+            {
+                Image img = ObterImagem($"{carta.Simbolo.ToString().ToLower()}{carta.Nipe}.png");
+                img.Width = 90;
+                cartas.Add(img);
+            }
+
+            return cartas;
+        }
 
         private Image ObterImagem(string nomeDaImagem)
         {
@@ -108,6 +127,8 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
                 contadorDeCartas++;
             }
         }
+
+        public List<Image> CartasParaJogar { get {  return RetornarCartasDescartadas(); } }
 
         private Image ObterImagemDaCarta(Carta carta, string commandParameterName)
         {
@@ -171,12 +192,12 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
         {
             foreach (var carta in _cartasParaJogar)
                 player.Mao.Remove(carta);
-
-            _cartasParaJogar = new List<Carta>();
-
+            
+            NotifcarDescarte();
             PrepararImagemDoBaralhoDoJogador();
             NotificarQueAsCartasNaoPodemSerJogadas();
             NotificarMudacaoDaMaoDoJogador();
+            //_cartasParaJogar = new List<Carta>();
         }
 
         public void AdcionarCartaParaSerJogada(string nomeCarta)
@@ -205,6 +226,7 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             _cartasParaJogar.Remove(c);
 
         }
+
 
         public ICommand SelectCardCommand
         {

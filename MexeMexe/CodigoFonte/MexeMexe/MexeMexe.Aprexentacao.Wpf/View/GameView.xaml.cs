@@ -23,6 +23,7 @@ namespace MexeMexe.Apresentacao.Wpf.View
             gameViewModel.MudouAMaoDoJogador += GameViewModel_MouAMAoDoJogador;
             gameViewModel.PodeJogarCartasSelecionadas += GameViewModel_PodeJogarCartasSelecionadas;
             gameViewModel.NaoPodeJogarCartasSelecionadas += GameViewModel_NaoPodeJogarCartasSelecionadas;
+            gameViewModel.HouveDescarte += GameViewModel_HouveDescarte;
 
             var t = ((GameViewModel)DataContext).StackCompraCartas.Children[0];
 
@@ -31,6 +32,14 @@ namespace MexeMexe.Apresentacao.Wpf.View
             stackAreaCompraCarta.Children.Add(t);
 
             MontarTela();
+        }
+
+        private void GameViewModel_HouveDescarte(object sender, System.EventArgs e)
+        {
+            foreach (var carta in gameViewModel.CartasParaJogar)
+            {
+                stackCartasJogadas.Children.Add(carta);
+            }
         }
 
         private void GameViewModel_NaoPodeJogarCartasSelecionadas(object sender, System.EventArgs e)

@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="{Binding Detalhes}" Height="450" Width="800" Background="Green">
     <Grid>
-
+        
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
 
-            <StackPanel Name="stackCartasJogadas" Background="Red" Width="1700" Height="220" HorizontalAlignment="Left">
+            <StackPanel Name="stackCartasJogadas" Background="Red" Width="auto" Height="auto" HorizontalAlignment="Left">
                 
             </StackPanel>
             
