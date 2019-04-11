@@ -12,7 +12,7 @@
 
             <StackPanel>
 
-                <StackPanel Name="stackCartasJogadas"  Width="auto" Height="auto" HorizontalAlignment="Left" Margin="-450,20,0,0">
+                <StackPanel Name="stackCartasJogadas" Orientation="Horizontal"  Width="auto" Height="auto" HorizontalAlignment="Left" Margin="0,20,0,0">
 
                 </StackPanel>
 

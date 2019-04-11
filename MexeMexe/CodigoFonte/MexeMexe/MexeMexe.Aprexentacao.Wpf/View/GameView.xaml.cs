@@ -36,10 +36,29 @@ namespace MexeMexe.Apresentacao.Wpf.View
 
         private void GameViewModel_HouveDescarte(object sender, System.EventArgs e)
         {
+            int cont = 0;
+
+            StackPanel stackGrupoDeCartas = new StackPanel();
+            stackGrupoDeCartas.HorizontalAlignment = HorizontalAlignment.Left;
+            Thickness posicaoStk = new Thickness(10, 0, 0, 0);
+            stackGrupoDeCartas.Margin = posicaoStk;
+
+
             foreach (var carta in gameViewModel.CartasParaJogar)
             {
-                stackCartasJogadas.Children.Add(carta);
+                if (cont > 0)
+                {
+                    Thickness posicao = new Thickness(0, -100, 0, 0);
+                    carta.Margin = posicao;
+                }
+
+                stackGrupoDeCartas.Children.Add(carta);
+
+                cont++;
             }
+
+            stackCartasJogadas.Children.Add(stackGrupoDeCartas);
+
         }
 
         private void GameViewModel_NaoPodeJogarCartasSelecionadas(object sender, System.EventArgs e)

@@ -197,7 +197,7 @@ namespace MexeMexe.Apresentacao.Wpf.ViewModel
             PrepararImagemDoBaralhoDoJogador();
             NotificarQueAsCartasNaoPodemSerJogadas();
             NotificarMudacaoDaMaoDoJogador();
-            //_cartasParaJogar = new List<Carta>();
+            _cartasParaJogar = new List<Carta>();
         }
 
         public void AdcionarCartaParaSerJogada(string nomeCarta)
